@@ -18,7 +18,7 @@ const todoAry = ref(iniVal)
 const inptText = ref('')
 
 const addTodo = () => {
-  if (inptText.value.trim()) {
+  if (inptText.value.trim() !== '') {
     const newVal = {
       id: Math.floor(Math.random() * 9999),
       task: inptText.value,
@@ -28,10 +28,17 @@ const addTodo = () => {
     inptText.value = '' // 入力欄をクリアする
   }
 }
+
 const deleteTodo = () => {
   const newTodoAry = []
 
-  todoAry.value = []
+  for (const item of todoAry.value) {
+    if (!item.isCheck) {
+      newTodoAry.push(item)
+    }
+  }
+
+  todoAry.value = newTodoAry
 }
 </script>
 
@@ -43,7 +50,6 @@ const deleteTodo = () => {
       <input type="text" v-model="inptText" />
       <button @click="addTodo">追加する</button>
       <button @click="deleteTodo">削除する</button>
-      <p v-for="(item, index) in todoAry" :key="index">{{ item.task }}</p>
       <div v-for="(item, index) in todoAry" :key="index">
         <input type="checkbox" name="item.task" v-model="item.isCheck" />
         <label for="item.task">{{ item.task }}</label>
@@ -55,14 +61,16 @@ const deleteTodo = () => {
 <style scoped>
 .box {
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .screen {
   width: 400px;
+  height: 500px;
   border: 1px solid black;
-  padding: 30px;
+  padding: 50px 30px;
   border-radius: 10px;
 }
 </style>
