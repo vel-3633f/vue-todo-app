@@ -45,7 +45,7 @@ const deleteTodo = () => {
 <template>
   <section class="box">
     <div class="screen">
-      <h1>TODO APP</h1>
+      <h1>Vue3 Todo App</h1>
       <p>残りのタスク：{{ todoAry.length }}</p>
       <input type="text" v-model="inptText" />
       <button @click="addTodo">追加する</button>
